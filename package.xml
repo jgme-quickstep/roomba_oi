@@ -4,7 +4,7 @@
   <name>roomba_oi</name>
   <version>0.0.0</version>
   <description>This package acts as a bridge between ros and a roomba</description>
-  <maintainer email="jackson@jgme.io">ubuntu</maintainer>
+  <maintainer email="jacksonempey98@gmail.com">Jackson Empey</maintainer>
   <license>MIT</license>
 
   <test_depend>ament_copyright</test_depend>
