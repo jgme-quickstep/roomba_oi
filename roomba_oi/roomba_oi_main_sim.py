@@ -1,30 +1,29 @@
-import rclpy, math
-from rclpy.node import Node
-from enum import Enum
+"""Simulated Roomba bridge node.
+This node serves as the simulation interface for the Roomba.
 
+ROS logic ==========================================
+Pub: roomba_state
+Sub: roomba_commands
+Gazebo logic =======================================
+Sub: cmd_vel
+Pub: model/quickstep/wheel_angles
+"""
+
+import rclpy
+import math
+from enum import Enum
 from roomba_bridge_messages.msg import RoombaState, RoombaCommands, RoombaElectrical, OdomData
 from geometry_msgs.msg import Twist, Vector3
 
-"""
-    This script serves as the simulation interface for the Roomba.
-
-    ROS logic ==========================================
-    Pub: roomba_state
-    Sub: roomba_commands
-    Gazebo logic =======================================
-    Sub: cmd_vel
-    Pub:
-"""
-
 class OIState(Enum):
+    """Encapsulates the simulated state of the Roomba OI service"""
     OFF = 0
     PASSIVE = 1
     SAFE = 2
     FULL = 3
 
-class RoombaBridge(Node):
-
-
+class RoombaBridge(rclpy.node.Node):
+    """Roomba bridge node for use in Gazebo"""
     def __init__(self):
         """
             Setup ROS components and Roomba adapter. Designed for use with Gazebo sim

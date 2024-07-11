@@ -1,11 +1,18 @@
-import rclpy, math
-from rclpy.node import Node
-from pyroombaadapter import PyRoombaAdapter
+"""Bridge node for controlling a physical Roomba.
+This node serves as the interface for the Roomba.
 
+ROS logic ==========================================
+Pub: roomba_state
+Sub: roomba_commands
+"""
+
+import rclpy
+import math
+from pyroombaadapter import PyRoombaAdapter
 from roomba_bridge_messages.msg import RoombaState, RoombaCommands, RoombaElectrical, OdomData
 from geometry_msgs.msg import Twist
 
-class RoombaBridge(Node):
+class RoombaBridge(rclpy.node.Node):
     def __init__(self):
         """
             Setup ROS components and Roomba adapter.

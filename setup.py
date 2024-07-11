@@ -18,7 +18,7 @@ setup(
     zip_safe=True,
     maintainer='Jackson Empey',
     maintainer_email='jacksonempey98@gmail.com',
-    description='TODO: Package description',
+    description='This package acts as a bridge between ros and a roomba',
     license='MIT',
     tests_require=['pytest'],
     entry_points={

@@ -1,3 +1,5 @@
+""" Launch file for simulated Roomba environment with teleo-op adapter
+"""
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
@@ -12,7 +14,7 @@ def generate_launch_description():
             package='roomba_oi',
             namespace='',
             executable='roomba_oi_main_sim',
-            name='roomba_bridge_sim'
+            name='roomba_bridge'
         ),
         # Joystick teleop
         IncludeLaunchDescription(
