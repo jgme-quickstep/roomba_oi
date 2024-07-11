@@ -1,12 +1,10 @@
-# Subsribe to joystick command and adapt it to a roomba output command
+# Subscribe to joystick command and adapt it to a Toomba command
 import rclpy
-from rclpy.node import Node
-
 from roomba_bridge_messages.msg import RoombaCommands
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Joy
 
-class RoombaTeleop(Node):
+class RoombaTeleop(rclpy.node.Node):
     def __init__(self):
         """
             Setup ROS components and Roomba adapter.
@@ -28,7 +26,7 @@ class RoombaTeleop(Node):
         """
             Reads in a joystick command and republishes it as a wheelspeed command
         """
-        scale = 1
+        scale = 1 # Temporary scaling factor, for development
         msg_tw = Twist()
         msg_tw.linear.x = scale * msg.axes[1]
         msg_tw.angular.z = scale * msg.axes[3]
