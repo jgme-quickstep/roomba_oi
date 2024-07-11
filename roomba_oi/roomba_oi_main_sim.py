@@ -9,8 +9,9 @@ Sub: cmd_vel
 Pub: model/quickstep/wheel_angles
 """
 
-import rclpy
 import math
+import rclpy
+from rclpy.node import Node
 from enum import Enum
 from roomba_bridge_messages.msg import RoombaState, RoombaCommands, RoombaElectrical, OdomData
 from geometry_msgs.msg import Twist, Vector3
@@ -22,7 +23,7 @@ class OIState(Enum):
     SAFE = 2
     FULL = 3
 
-class RoombaBridge(rclpy.node.Node):
+class RoombaBridge(Node):
     """Roomba bridge node for use in Gazebo"""
     def __init__(self):
         """

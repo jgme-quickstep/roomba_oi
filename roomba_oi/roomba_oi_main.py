@@ -6,13 +6,14 @@ Pub: roomba_state
 Sub: roomba_commands
 """
 
-import rclpy
 import math
+import rclpy
+from rclpy.node import Node
 from pyroombaadapter import PyRoombaAdapter
 from roomba_bridge_messages.msg import RoombaState, RoombaCommands, RoombaElectrical, OdomData
 from geometry_msgs.msg import Twist
 
-class RoombaBridge(rclpy.node.Node):
+class RoombaBridge(Node):
     def __init__(self):
         """
             Setup ROS components and Roomba adapter.

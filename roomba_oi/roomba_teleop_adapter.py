@@ -1,10 +1,11 @@
 # Subscribe to joystick command and adapt it to a Toomba command
 import rclpy
+from rclpy.node import Node
 from roomba_bridge_messages.msg import RoombaCommands
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Joy
 
-class RoombaTeleop(rclpy.node.Node):
+class RoombaTeleop(Node):
     def __init__(self):
         """
             Setup ROS components and Roomba adapter.

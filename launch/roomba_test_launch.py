@@ -6,13 +6,6 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     return LaunchDescription([
-        # Launch teleop adapter
-        Node(
-            package='teleop_twist_joy',
-            namespace='roomba',
-            executable='teleop-launch',
-            name='teleop_joy'
-        ),
         # Launch roomba bridge adapter
         Node(
             package='roomba_oi',
@@ -20,7 +13,7 @@ def generate_launch_description():
             executable='roomba_oi_main',
             name='teleop'
         ),
-        # Launch roomba bridge adapter
+        # Launch teleop adapter
         Node(
             package='roomba_oi',
             namespace='roomba',
