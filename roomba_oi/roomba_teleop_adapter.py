@@ -15,7 +15,7 @@ class RoombaTeleop(Node):
         # Setup subscriber for commands
         self.subscription = self.create_subscription(
             Joy,
-            'joy',
+            '/joy',
             self.joy_callback,
             10
         )

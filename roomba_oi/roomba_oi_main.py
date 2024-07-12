@@ -24,6 +24,8 @@ class RoombaBridge(Node):
         self.port = "/dev/ttyUSB0"
         try:
             self.roomba = PyRoombaAdapter(self.port)
+            self.roomba.change_mode_to_full()
+            self.get_logger().debug('Connection to roomba established')
         except Exception as e:
             self.roomba = None
             self.get_logger().debug('Serial connection to roomba failed')
@@ -41,14 +43,14 @@ class RoombaBridge(Node):
         self.publisher_ = self.create_publisher(RoombaState, 'roomba_state', 10) # Setup the state publisher
 
     # Handle commands from the roomba_commands topic
-    def command_callback(self, msg: Twist):
+    def command_callback(self, msg: RoombaCommands):
         """
             Handles writing requests in the RoombaCommands topic to the roomba.
         """
 
         # Linear and angular velocity request in roomba frame
-        linear_cmd = msg.linear.x
-        angular_cmd = msg.angular.z
+        linear_cmd = msg.cmd_vel.linear.x
+        angular_cmd = msg.cmd_vel.angular.z
 
         # Send wheel commands to roomba
         self.roomba.move(linear_cmd, angular_cmd)
@@ -91,14 +93,17 @@ class RoombaBridge(Node):
         msg.angle_delta = self.roomba.request_angle()
 
         # Raw encoder data
-        encoder_counts = self.roomba.get_encoder_counts()
+        encoder_counts = self.roomba.request_encoder_counts()
         # Encoder counts is a tuple of form (left count, right count)
-        msg.left_wheel_encoder = encoder_counts[0]
-        msg.right_wheel_encoder = encoder_counts[1]
+        msg.left_wheel_encoder = int(encoder_counts[0])
+        msg.right_wheel_encoder = int(encoder_counts[1])
 
         count_per_rev = 508.8 # Wheel encoder counter per revolution (per OI spec)
-        msg.left_wheel_angle = (encoder_counts[0]/count_per_rev) * 2*math.pi
-        msg.right_wheel_angle = (encoder_counts[1]/count_per_rev) * 2*math.pi
+        msg.left_wheel_angle = float(encoder_counts[0]/count_per_rev * 2.0 * math.pi)
+        msg.right_wheel_angle = float(encoder_counts[1]/count_per_rev * 2.0 * math.pi)
+
+        msg.distance_delta = 0.0
+        msg.angle_delta = 0.0
 
         return msg
 
