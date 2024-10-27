@@ -42,6 +42,9 @@ class RoombaBridge(Node):
         self.state_update_timer =  self.create_timer(timer_period, self.state_update_callback) # Call publisher every x seconds
         self.publisher_ = self.create_publisher(RoombaState, 'roomba_state', 10) # Setup the state publisher
 
+    def __del__(self):
+        self.roomba.change_mode_to_passive()
+
     # Handle commands from the roomba_commands topic
     def command_callback(self, msg: RoombaCommands):
         """
