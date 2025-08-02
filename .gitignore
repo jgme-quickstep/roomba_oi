@@ -1,9 +1,9 @@
+**/build
+**/install
+**/log
+**/.vscode
 devel/
-logs/
-build/
 bin/
-lib/
-.vscode/
 msg_gen/
 srv_gen/
 msg/*Action.msg
