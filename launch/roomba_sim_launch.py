@@ -1,5 +1,6 @@
 """ Launch file for simulated Roomba environment with teleo-op adapter
 """
+import logging
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
